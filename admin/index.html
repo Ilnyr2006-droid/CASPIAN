@@ -1,37 +1,52 @@
 <script>
-  function openIdentityAndFixHash() {
+  // Функция, которая запускает вашу логику
+  function initNetlifyLogic() {
     const h = window.location.hash || "";
+    const user = window.netlifyIdentity.currentUser();
 
-    // 1) Если пришли с confirm / recovery — добавим type, если его нет
-    if (h.includes("confirmation_token") && !h.includes("type=confirmation")) {
-      window.location.hash = h + (h.includes("?") || h.includes("&") ? "&" : "&") + "type=confirmation";
-      return;
-    }
+    // 1) Логика для токенов (Confirmation / Recovery)
+    if (!user && (h.includes("confirmation_token") || h.includes("recovery_token"))) {
+      let newHash = h;
 
-    if (h.includes("recovery_token") && !h.includes("type=recovery")) {
-      window.location.hash = h + (h.includes("?") || h.includes("&") ? "&" : "&") + "type=recovery";
-      return;
-    }
-
-    // 2) Если уже есть нужный type — просто открываем виджет
-    if (h.includes("confirmation_token") || h.includes("recovery_token")) {
-      window.netlifyIdentity && window.netlifyIdentity.open();
-    }
-  }
-
-  openIdentityAndFixHash();
-
-  if (window.netlifyIdentity) {
-    window.netlifyIdentity.on("init", (user) => {
-      if (!user) {
-        window.netlifyIdentity.on("login", () => {
-          document.location.href = "/admin/";
-        });
+      // Добавляем type, если его нет
+      if (h.includes("confirmation_token") && !h.includes("type=confirmation")) {
+        newHash = h + "&type=confirmation";
       }
+      if (h.includes("recovery_token") && !h.includes("type=recovery")) {
+        newHash = h + "&type=recovery";
+      }
+
+      // Обновляем хеш без перезагрузки страницы
+      if (newHash !== h) {
+        window.history.replaceState(null, null, newHash);
+      }
+
+      // Открываем виджет
+      window.netlifyIdentity.open();
+    }
+
+    // 2) Обработчики событий
+    window.netlifyIdentity.on("login", () => {
+      document.location.href = "/admin/";
     });
 
     window.netlifyIdentity.on("logout", () => {
       document.location.href = "/";
+    });
+  }
+
+  // ГЛАВНОЕ ИСПРАВЛЕНИЕ: Ждем готовности Netlify
+  if (window.netlifyIdentity) {
+    // Если скрипт уже загружен (например, из кэша)
+    window.netlifyIdentity.on("init", initNetlifyLogic);
+    // На случай, если init уже прошел:
+    initNetlifyLogic();
+  } else {
+    // Если скрипт еще грузится, ждем пока он появится в window
+    document.addEventListener("DOMContentLoaded", () => {
+        if (window.netlifyIdentity) {
+            window.netlifyIdentity.on("init", initNetlifyLogic);
+        }
     });
   }
 </script>
