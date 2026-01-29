@@ -1,46 +1,37 @@
-<!doctype html>
-<html lang="ru">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>CASPIAN — Админка</title>
+<script>
+  function openIdentityAndFixHash() {
+    const h = window.location.hash || "";
 
-    <!-- Netlify Identity Widget -->
-    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-  </head>
+    // 1) Если пришли с confirm / recovery — добавим type, если его нет
+    if (h.includes("confirmation_token") && !h.includes("type=confirmation")) {
+      window.location.hash = h + (h.includes("?") || h.includes("&") ? "&" : "&") + "type=confirmation";
+      return;
+    }
 
-  <body>
-    <!-- Decap CMS -->
-    <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+    if (h.includes("recovery_token") && !h.includes("type=recovery")) {
+      window.location.hash = h + (h.includes("?") || h.includes("&") ? "&" : "&") + "type=recovery";
+      return;
+    }
 
-    <script>
-      // 1) Если пришли по ссылке восстановления (#recovery_token=...)
-      //    — принудительно открываем виджет, чтобы он показал форму нового пароля
-      if (window.location.hash && window.location.hash.includes("recovery_token")) {
-        // некоторые ссылки приходят без type=recovery — добавим
-        if (!window.location.hash.includes("type=recovery")) {
-          window.location.hash = window.location.hash + "&type=recovery";
-        }
-        window.netlifyIdentity && window.netlifyIdentity.open();
-      }
+    // 2) Если уже есть нужный type — просто открываем виджет
+    if (h.includes("confirmation_token") || h.includes("recovery_token")) {
+      window.netlifyIdentity && window.netlifyIdentity.open();
+    }
+  }
 
-      // 2) После логина возвращаем в /admin/
-      if (window.netlifyIdentity) {
-        window.netlifyIdentity.on("init", (user) => {
-          if (!user) {
-            window.netlifyIdentity.on("login", () => {
-              document.location.href = "/admin/";
-            });
-          }
-        });
+  openIdentityAndFixHash();
 
-        window.netlifyIdentity.on("logout", () => {
-          document.location.href = "/";
+  if (window.netlifyIdentity) {
+    window.netlifyIdentity.on("init", (user) => {
+      if (!user) {
+        window.netlifyIdentity.on("login", () => {
+          document.location.href = "/admin/";
         });
       }
-    </script>
+    });
 
-    <!-- Кнопка (оставим для удобства) -->
-    <button onclick="netlifyIdentity.open()">Login</button>
-  </body>
-</html>
+    window.netlifyIdentity.on("logout", () => {
+      document.location.href = "/";
+    });
+  }
+</script>
