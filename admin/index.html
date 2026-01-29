@@ -1,52 +1,86 @@
 <!doctype html>
 <html lang="ru">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>CASPIAN — Админка</title>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>CASPIAN — Админка</title>
 
-    <!-- Netlify Identity -->
-    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  <!-- Netlify Identity -->
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 
-    <!-- Decap CMS -->
-    <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+  <style>
+    html,body{height:100%;margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+    .loading{
+      height:100%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      flex-direction:column;
+      gap:10px;
+      color:#111;
+    }
+    .small{opacity:.6;font-size:13px}
+  </style>
+</head>
 
-    <style>
-      html, body { height: 100%; margin: 0; }
-    </style>
-  </head>
+<body>
+  <div class="loading" id="loading">
+    <div>Загрузка админки…</div>
+    <div class="small">Если висит белый экран — значит CMS скрипт не загрузился или config.yml недоступен.</div>
+  </div>
 
-  <body>
-    <div id="nc-root"></div>
+  <script>
+    // Если попали на /admin/ без #/ — добавим хэш (Decap использует hash роутер)
+    if (!location.hash || location.hash === "#") {
+      location.hash = "#/";
+    }
 
-    <script>
-      (function () {
-        function openIfToken() {
-          const h = window.location.hash || "";
-          if (/invite_token=|recovery_token=|confirmation_token=/.test(h)) {
-            if (window.netlifyIdentity) window.netlifyIdentity.open();
+    // Авто-открытие окна только для invite/recovery/confirmation
+    function openIfToken() {
+      const h = location.hash || "";
+      if (/invite_token=|recovery_token=|confirmation_token=/.test(h)) {
+        if (window.netlifyIdentity) window.netlifyIdentity.open();
+      }
+    }
+
+    if (window.netlifyIdentity) {
+      window.netlifyIdentity.on("init", function(){ openIfToken(); });
+      setTimeout(openIfToken, 250);
+      window.netlifyIdentity.on("login", function(){ window.netlifyIdentity.close(); });
+    }
+
+    // Подгрузка Decap CMS с fallback
+    function loadScript(src, onload, onerror) {
+      const s = document.createElement("script");
+      s.src = src;
+      s.defer = true;
+      s.onload = onload;
+      s.onerror = onerror;
+      document.head.appendChild(s);
+    }
+
+    function startCMS() {
+      // Если CMS загрузился — убираем прелоадер
+      const el = document.getElementById("loading");
+      if (el) el.remove();
+      // Decap сам стартует после загрузки скрипта
+    }
+
+    loadScript(
+      "https://cdn.jsdelivr.net/npm/decap-cms@3/dist/decap-cms.js",
+      startCMS,
+      function () {
+        // fallback 2
+        loadScript(
+          "https://unpkg.com/decap-cms@3/dist/decap-cms.js",
+          startCMS,
+          function () {
+            document.getElementById("loading").innerHTML =
+              "<div>Ошибка: не удалось загрузить Decap CMS (CDN заблокирован).</div><div class='small'>Отключи AdBlock/защиту или попробуй другой браузер.</div>";
           }
-        }
-
-        if (window.netlifyIdentity) {
-          // если пришли по invite/recovery ссылке — открыть окно
-          window.netlifyIdentity.on("init", function () {
-            openIfToken();
-          });
-
-          // на всякий случай (иногда init уже успевает отработать)
-          setTimeout(openIfToken, 200);
-
-          // после логина НЕ делаем location.href="/admin/" (это ломает #/)
-          window.netlifyIdentity.on("login", function () {
-            // оставляем CMS роутер работать на #/
-            if (!window.location.hash || window.location.hash === "#") {
-              window.location.hash = "#/";
-            }
-            window.netlifyIdentity.close();
-          });
-        }
-      })();
-    </script>
-  </body>
+        );
+      }
+    );
+  </script>
+</body>
 </html>
