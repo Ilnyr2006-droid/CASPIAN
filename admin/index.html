@@ -1,86 +1,52 @@
 <!doctype html>
 <html lang="ru">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>CASPIAN — Админка</title>
+  <head>
+    <meta charset="utf-8" />
+    <title>CASPIAN — Админка</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <!-- Netlify Identity -->
-  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+    <!-- Netlify Identity -->
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 
-  <style>
-    html,body{height:100%;margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
-    .loading{
-      height:100%;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      flex-direction:column;
-      gap:10px;
-      color:#111;
-    }
-    .small{opacity:.6;font-size:13px}
-  </style>
-</head>
+    <!-- Decap CMS -->
+    <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+  </head>
 
-<body>
-  <div class="loading" id="loading">
-    <div>Загрузка админки…</div>
-    <div class="small">Если висит белый экран — значит CMS скрипт не загрузился или config.yml недоступен.</div>
-  </div>
-
-  <script>
-    // Если попали на /admin/ без #/ — добавим хэш (Decap использует hash роутер)
-    if (!location.hash || location.hash === "#") {
-      location.hash = "#/";
-    }
-
-    // Авто-открытие окна только для invite/recovery/confirmation
-    function openIfToken() {
-      const h = location.hash || "";
-      if (/invite_token=|recovery_token=|confirmation_token=/.test(h)) {
-        if (window.netlifyIdentity) window.netlifyIdentity.open();
+  <body>
+    <script>
+      // === ВСЕГДА корректный hash ===
+      if (!location.hash || location.hash === "#") {
+        location.hash = "#/";
       }
-    }
 
-    if (window.netlifyIdentity) {
-      window.netlifyIdentity.on("init", function(){ openIfToken(); });
-      setTimeout(openIfToken, 250);
-      window.netlifyIdentity.on("login", function(){ window.netlifyIdentity.close(); });
-    }
+      function hasToken() {
+        const h = location.hash || "";
+        return /invite_token=|recovery_token=|confirmation_token=/.test(h);
+      }
 
-    // Подгрузка Decap CMS с fallback
-    function loadScript(src, onload, onerror) {
-      const s = document.createElement("script");
-      s.src = src;
-      s.defer = true;
-      s.onload = onload;
-      s.onerror = onerror;
-      document.head.appendChild(s);
-    }
-
-    function startCMS() {
-      // Если CMS загрузился — убираем прелоадер
-      const el = document.getElementById("loading");
-      if (el) el.remove();
-      // Decap сам стартует после загрузки скрипта
-    }
-
-    loadScript(
-      "https://cdn.jsdelivr.net/npm/decap-cms@3/dist/decap-cms.js",
-      startCMS,
-      function () {
-        // fallback 2
-        loadScript(
-          "https://unpkg.com/decap-cms@3/dist/decap-cms.js",
-          startCMS,
-          function () {
-            document.getElementById("loading").innerHTML =
-              "<div>Ошибка: не удалось загрузить Decap CMS (CDN заблокирован).</div><div class='small'>Отключи AdBlock/защиту или попробуй другой браузер.</div>";
+      if (window.netlifyIdentity) {
+        window.netlifyIdentity.on("init", function (user) {
+          // Если пришли по токену (invite / recovery)
+          if (hasToken()) {
+            window.netlifyIdentity.open();
+            return;
           }
-        );
+
+          // Если не залогинен — сразу открыть логин
+          if (!user) {
+            window.netlifyIdentity.open("login");
+          }
+        });
+
+        window.netlifyIdentity.on("login", function () {
+          // После логина остаёмся в админке
+          document.location.href = "/admin/#/";
+        });
+
+        window.netlifyIdentity.on("logout", function () {
+          document.location.href = "/admin/#/";
+        });
       }
-    );
-  </script>
-</body>
+    </script>
+  </body>
 </html>
