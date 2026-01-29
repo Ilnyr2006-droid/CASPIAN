@@ -6,32 +6,48 @@
     <title>CASPIAN — Админка</title>
 
     <!-- Netlify Identity -->
-    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+    <script defer src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+
+    <!-- Decap CMS -->
+    <script defer src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
   </head>
 
   <body>
-    <!-- Decap CMS (бывший Netlify CMS) -->
-    <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
-
     <script>
-      if (window.netlifyIdentity) {
-        window.netlifyIdentity.on("init", user => {
-          // если пользователь не залогинен — открываем окно логина
-          if (!user) {
-            window.netlifyIdentity.open();
-          }
-        });
+      (function () {
+        function run() {
+          if (!window.netlifyIdentity) return;
 
-        // после логина остаёмся в /admin
-        window.netlifyIdentity.on("login", () => {
-          document.location.href = "/admin/";
-        });
+          // Открываем окно логина, если пользователь не залогинен
+          // и мы на /admin/ (в т.ч. /admin/#/)
+          window.netlifyIdentity.on("init", function (user) {
+            if (!user) {
+              window.netlifyIdentity.open();
+            }
+          });
 
-        // после логаута — на сайт
-        window.netlifyIdentity.on("logout", () => {
-          document.location.href = "/";
-        });
-      }
+          // Если init уже произошёл (иногда из кэша) — подстрахуемся
+          setTimeout(function () {
+            try {
+              if (!window.netlifyIdentity.currentUser()) {
+                window.netlifyIdentity.open();
+              }
+            } catch (e) {}
+          }, 200);
+
+          // ВАЖНО: никаких редиректов на /admin/ и никакого трогания #/ !
+          // Logout можно оставить так:
+          window.netlifyIdentity.on("logout", function () {
+            document.location.href = "/";
+          });
+        }
+
+        if (document.readyState === "loading") {
+          document.addEventListener("DOMContentLoaded", run);
+        } else {
+          run();
+        }
+      })();
     </script>
   </body>
 </html>
