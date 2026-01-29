@@ -4,44 +4,43 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>CASPIAN — Админка</title>
-    <!-- Netlify Identity (для входа в админку на Netlify) -->
+
+    <!-- Netlify Identity Widget -->
     <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
   </head>
+
   <body>
-    <!-- Decap CMS (бывший Netlify CMS) -->
+    <!-- Decap CMS -->
     <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
-  
+
     <script>
+      // 1) Если пришли по ссылке восстановления (#recovery_token=...)
+      //    — принудительно открываем виджет, чтобы он показал форму нового пароля
+      if (window.location.hash && window.location.hash.includes("recovery_token")) {
+        // некоторые ссылки приходят без type=recovery — добавим
+        if (!window.location.hash.includes("type=recovery")) {
+          window.location.hash = window.location.hash + "&type=recovery";
+        }
+        window.netlifyIdentity && window.netlifyIdentity.open();
+      }
+
+      // 2) После логина возвращаем в /admin/
       if (window.netlifyIdentity) {
-        window.netlifyIdentity.on("init", function (user) {
+        window.netlifyIdentity.on("init", (user) => {
           if (!user) {
-            window.netlifyIdentity.on("login", function () {
+            window.netlifyIdentity.on("login", () => {
               document.location.href = "/admin/";
             });
           }
         });
-      }
-    </script>
-    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 
-<script>
-  if (window.netlifyIdentity) {
-
-    window.netlifyIdentity.on("init", user => {
-      if (!user) {
-        window.netlifyIdentity.on("login", () => {
-          document.location.href = "/admin/";
+        window.netlifyIdentity.on("logout", () => {
+          document.location.href = "/";
         });
       }
-    });
+    </script>
 
-    window.netlifyIdentity.on("logout", () => {
-      document.location.href = "/";
-    });
-
-  }
-</script>
-<button onclick="netlifyIdentity.open()">Login</button>
-
+    <!-- Кнопка (оставим для удобства) -->
+    <button onclick="netlifyIdentity.open()">Login</button>
   </body>
 </html>
