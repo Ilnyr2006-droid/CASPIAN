@@ -1,55 +1,55 @@
-<script>
-  // Функция обработки токенов и входа
-  function handleNetlifyEvents() {
-    const h = window.location.hash || "";
-    const user = window.netlifyIdentity.currentUser();
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CASPIAN — Кровельные и строительные материалы</title>
 
-    // 1. Если пользователя нет, а в ссылке есть токен — чиним хеш и открываем виджет
-    if (!user && (h.includes("confirmation_token") || h.includes("recovery_token"))) {
-      
-      let newHash = h;
-      
-      // Добавляем type, если его нет (для подтверждения почты)
-      if (h.includes("confirmation_token") && !h.includes("type=confirmation")) {
-        newHash = h + "&type=confirmation";
+  <!-- Netlify Identity -->
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ======= ТВОЙ САЙТ (контент) ======= -->
+  <header>
+    <h1>CASPIAN</h1>
+  </header>
+
+  <main>
+    <p>Главная страница сайта</p>
+  </main>
+  <!-- ======= /ТВОЙ САЙТ ======= -->
+
+
+  <!-- ======= ЛОГИКА ДЛЯ NETLIFY IDENTITY ======= -->
+  <script>
+    (function () {
+      const hash = window.location.hash || "";
+
+      // Если пришли из письма Netlify (invite / recovery / confirmation)
+      if (
+        hash.includes("invite_token=") ||
+        hash.includes("recovery_token=") ||
+        hash.includes("confirmation_token=")
+      ) {
+        // Перенаправляем строго в /admin с сохранением токена
+        window.location.replace("/admin/" + hash);
+        return;
       }
-      
-      // Добавляем type, если его нет (для сброса пароля)
-      if (h.includes("recovery_token") && !h.includes("type=recovery")) {
-        newHash = h + "&type=recovery";
-      }
 
-      // Если хеш изменился — обновляем его БЕЗ перезагрузки и БЕЗ return
-      if (newHash !== h) {
-        window.history.replaceState(null, null, newHash);
-      }
-
-      // ВАЖНО: Мы не делаем return, мы сразу открываем окно
-      window.netlifyIdentity.open();
-    }
-
-    // 2. Обработчики входа и выхода
-    window.netlifyIdentity.on("login", () => {
-      document.location.href = "/admin/";
-    });
-
-    window.netlifyIdentity.on("logout", () => {
-      document.location.href = "/";
-    });
-  }
-
-  // ГЛАВНАЯ ЧАСТЬ: Гарантируем, что Netlify загружен перед запуском
-  if (window.netlifyIdentity) {
-    // Если уже загружен — запускаем логику
-    window.netlifyIdentity.on("init", handleNetlifyEvents);
-    // На случай, если init уже прошел — вызываем вручную
-    handleNetlifyEvents();
-  } else {
-    // Если еще не загружен — ждем события загрузки документа, потом проверяем
-    document.addEventListener("DOMContentLoaded", () => {
+      // Если пользователь уже залогинен — можно сразу пустить в админку
       if (window.netlifyIdentity) {
-        window.netlifyIdentity.on("init", handleNetlifyEvents);
+        window.netlifyIdentity.on("init", (user) => {
+          if (user && window.location.pathname !== "/admin/") {
+            console.log("User logged in:", user.email);
+          }
+        });
       }
-    });
-  }
-</script>
+    })();
+  </script>
+  <!-- ======= /ЛОГИКА ======= -->
+
+</body>
+</html>
