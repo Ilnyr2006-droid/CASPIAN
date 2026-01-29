@@ -1,51 +1,50 @@
 <!doctype html>
 <html lang="ru">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>CASPIAN — Админка</title>
 
     <!-- Netlify Identity -->
-    <script defer src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 
     <!-- Decap CMS -->
-    <script defer src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+    <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+
+    <style>
+      html, body { height: 100%; margin: 0; }
+    </style>
   </head>
 
   <body>
+    <div id="nc-root"></div>
+
     <script>
       (function () {
-        function run() {
-          if (!window.netlifyIdentity) return;
-
-          // Открываем окно логина, если пользователь не залогинен
-          // и мы на /admin/ (в т.ч. /admin/#/)
-          window.netlifyIdentity.on("init", function (user) {
-            if (!user) {
-              window.netlifyIdentity.open();
-            }
-          });
-
-          // Если init уже произошёл (иногда из кэша) — подстрахуемся
-          setTimeout(function () {
-            try {
-              if (!window.netlifyIdentity.currentUser()) {
-                window.netlifyIdentity.open();
-              }
-            } catch (e) {}
-          }, 200);
-
-          // ВАЖНО: никаких редиректов на /admin/ и никакого трогания #/ !
-          // Logout можно оставить так:
-          window.netlifyIdentity.on("logout", function () {
-            document.location.href = "/";
-          });
+        function openIfToken() {
+          const h = window.location.hash || "";
+          if (/invite_token=|recovery_token=|confirmation_token=/.test(h)) {
+            if (window.netlifyIdentity) window.netlifyIdentity.open();
+          }
         }
 
-        if (document.readyState === "loading") {
-          document.addEventListener("DOMContentLoaded", run);
-        } else {
-          run();
+        if (window.netlifyIdentity) {
+          // если пришли по invite/recovery ссылке — открыть окно
+          window.netlifyIdentity.on("init", function () {
+            openIfToken();
+          });
+
+          // на всякий случай (иногда init уже успевает отработать)
+          setTimeout(openIfToken, 200);
+
+          // после логина НЕ делаем location.href="/admin/" (это ломает #/)
+          window.netlifyIdentity.on("login", function () {
+            // оставляем CMS роутер работать на #/
+            if (!window.location.hash || window.location.hash === "#") {
+              window.location.hash = "#/";
+            }
+            window.netlifyIdentity.close();
+          });
         }
       })();
     </script>
