@@ -1,0 +1,72 @@
+{
+  "products": [
+    {
+      "id": "roof-001",
+      "category": "Металлические крыши",
+      "image": "metal.jpg",
+      "title": {
+        "ru": "Металлочерепица",
+        "ka": "მეტალოკრამიტი",
+        "az": "Metal kirəmit",
+        "en": "Metal tile"
+      },
+      "short": {
+        "ru": "Качественная металлочерепица для частных и коммерческих объектов.",
+        "ka": "ხარისხიანი მეტალოკრამიტი საცხოვრებელი და კომერციული ობიექტებისთვის.",
+        "az": "Yaşayış və kommersiya obyektləri üçün keyfiyyətli metal kirəmit.",
+        "en": "Quality metal tile for residential and commercial buildings."
+      }
+    },
+    {
+      "id": "drain-001",
+      "category": "Водосточные системы",
+      "image": "drainage-system-main.jpg",
+      "title": {
+        "ru": "Водосточная система",
+        "ka": "წყალსაწრეტი სისტემა",
+        "az": "Oluk sistemi",
+        "en": "Gutter system"
+      },
+      "short": {
+        "ru": "Желоба, кронштейны, трубы и аксессуары — под ваш объект.",
+        "ka": "ღარები, სამაგრები, მილები და აქსესუარები — თქვენი ობიექტისთვის.",
+        "az": "Oluklar, kronşteynlər, borular və aksessuarlar — obyektiniz üçün.",
+        "en": "Gutters, brackets, pipes and accessories — for your project."
+      }
+    },
+    {
+      "id": "wood-001",
+      "category": "Древесный материал",
+      "image": "doski.jpg",
+      "title": {
+        "ru": "Пиломатериалы",
+        "ka": "ხის მასალები",
+        "az": "Taxta materialları",
+        "en": "Timber"
+      },
+      "short": {
+        "ru": "Доска пола, OSB/3 и другие древесные материалы.",
+        "ka": "იატაკის დაფა, OSB/3 და სხვა ხის მასალები.",
+        "az": "Döşəmə taxtası, OSB/3 və digər taxta materiallar.",
+        "en": "Floor boards, OSB/3 and other timber materials."
+      }
+    },
+    {
+      "id": "screws-001",
+      "category": "Саморезы",
+      "image": "screws.jpg",
+      "title": {
+        "ru": "Саморезы",
+        "ka": "თვითმჭრელი ხრახნები",
+        "az": "Öz-özünə bərkidilən vintlər",
+        "en": "Self-tapping screws"
+      },
+      "short": {
+        "ru": "Крепёж для кровельных и строительных работ.",
+        "ka": "სამაგრები გადახურვისა და სამშენებლო სამუშაოებისთვის.",
+        "az": "Dam örtüyü və tikinti işləri üçün bərkidicilər.",
+        "en": "Fasteners for roofing and construction work."
+      }
+    }
+  ]
+}

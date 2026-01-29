@@ -1,0 +1,803 @@
+/* --- ОБЩИЕ СТИЛИ (Не менять) --- */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Montserrat', sans-serif; background: #fff; color: #333; line-height: 1.6; }
+.container { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 0 15px; }
+
+/* --- ШАПКА (Общая) --- */
+.top-bar { padding: 20px 0; border-bottom: 1px solid #f0f0f0; }
+.logo-link { text-decoration: none; }
+.brand-name { color: #003366; font-size: 32px; font-weight: 800; }
+.header-info { display: flex; gap: 25px; font-size: 13px; color: #666; }
+.btn-call { background: #CC2222; color: #fff; padding: 10px 20px; border-radius: 5px; text-decoration: none; font-weight: bold; transition: 0.3s; }
+.btn-call:hover { background: #a81b1b; }
+
+/* --- МЕНЮ (Чистая навигация без выпадающих окон) --- */
+.main-nav { background: #f8f8f8; border-bottom: 1px solid #eee; }
+.main-nav ul { list-style: none; display: flex; justify-content: center; }
+.main-nav li a {
+    display: block;
+    padding: 15px 22px;
+    text-decoration: none;
+    color: #333;
+    font-weight: 700;
+    font-size: 13px; /* Оптимальный размер для чистой навигации */
+    text-transform: uppercase;
+    transition: 0.3s;
+}
+.main-nav li a:hover, .main-nav li a.active { color: #CC2222; }
+
+/* --- УНИВЕРСАЛЬНЫЙ ЗАГОЛОВОК С ЛИНИЯМИ --- */
+.title-divider {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 50px;
+}
+.title-divider::before, .title-divider::after {
+    content: '';
+    flex: 1;
+    border-bottom: 2px solid #CC2222;
+}
+.title-divider h2 {
+    padding: 0 20px;
+    font-size: 32px;
+    font-weight: 800;
+    color: #333;
+    text-transform: uppercase;
+}
+
+/* --- ГЛАВНАЯ СТРАНИЦА --- */
+.hero-section { background: #DDE1E7; padding: 60px 0; overflow: hidden; }
+.hero-content {
+    flex: 1;
+    padding-right: 50px; /* Отступ от картинки */
+}
+.hero-brand-small { color: #CC2222; font-size: 18px; font-weight: 800; margin-bottom: 5px; }
+.hero-title { font-size: 48px; font-weight: 800; color: #1a1a1a; margin-bottom: 10px; }
+.hero-subtitle { font-size: 18px; color: #555; margin-bottom: 30px; }
+.btn-red-main { background: #CC2222; color: white; padding: 12px 30px; text-decoration: none; border-radius: 4px; font-weight: bold; display: inline-block; }
+/* --- УМЕНЬШАЕМ ГЛАВНОЕ ФОТО --- */
+.hero-image {
+    flex: 0 0 450px; /* Фиксируем ширину контейнера картинки (было flex: 1) */
+    text-align: right;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.hero-image img {
+    max-width: 100%; /* Картинка подстроится под размер 450px */
+    height: auto;
+    border-radius: 12px; /* Сделаем углы чуть более закругленными для мягкости */
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1); /* Добавим легкую тень */
+}
+
+.categories-block { padding: 80px 0; }
+.category-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+.category-card { border: 1px solid #eee; padding: 30px 15px; text-align: center; border-radius: 8px; background: #fff; transition: 0.3s; border-bottom: 4px solid transparent; cursor: pointer; }
+.category-card:hover { border-bottom: 4px solid #CC2222; box-shadow: 0 10px 25px rgba(0,0,0,0.08); transform: translateY(-5px); }
+.category-card img {
+    height: 180px; /* Было 100px, теперь фотки станут значительно больше */
+    width: 100%;
+    object-fit: cover; /* Фото будет красиво заполнять блок, а не сжиматься */
+    margin-bottom: 20px;
+    display: block;
+    border-radius: 4px;
+}
+.category-card {
+    border: 1px solid #eee;
+    padding: 15px; /* Уменьшили отступы, чтобы для фото было больше места */
+    text-align: center;
+    border-radius: 8px;
+    background: #fff;
+    transition: 0.3s;
+    border-bottom: 4px solid transparent;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 280px; /* Увеличили общую высоту карточки */
+}
+
+.features-bar { background: #CC2222; color: white; padding: 50px 0; }
+.feature-item { text-align: center; flex: 1; }
+.feature-icon { font-size: 40px; display: block; margin-bottom: 10px; }
+
+/* --- СТРАНИЦА НОВОСТЕЙ --- */
+.news-page-wrapper { padding: 80px 0; }
+.container-news { max-width: 1000px; margin: 0 auto; padding: 0 20px; }
+.custom-news-list li { position: relative; padding-left: 25px; margin-bottom: 20px; font-size: 16px; list-style: none; }
+.custom-news-list li::before { content: "•"; color: #CC2222; font-size: 24px; position: absolute; left: 0; top: -5px; font-weight: bold; }
+
+/* --- КОНТАКТЫ --- */
+.map-container-full { position: relative; width: 100%; height: 550px; margin-top: 40px; }
+.contact-business-card { position: absolute; top: 50%; right: 5%; transform: translateY(-50%); background: #fff; width: 380px; padding: 40px; border-radius: 20px; box-shadow: 0 15px 40px rgba(0,0,0,0.15); z-index: 100; border-top: 5px solid #CC2222; }
+
+/* --- СТРАНИЦА О НАС --- */
+.container-narrow { max-width: 900px; margin: 0 auto; padding: 0 20px; }
+.product-list li { position: relative; padding-left: 25px; margin-bottom: 12px; list-style: none; }
+.product-list li::before { content: "■"; color: #CC2222; position: absolute; left: 0; font-size: 14px; }
+
+/* --- АКСЕССУАРЫ --- */
+.accessory-card { background: #fff; border: 1px solid #eee; padding: 40px 25px; text-align: center; border-radius: 12px; transition: 0.3s; }
+.accessory-card:hover { border-color: #CC2222; transform: translateY(-10px); box-shadow: 0 15px 35px rgba(204, 34, 34, 0.1); }
+
+/* --- СТРАНИЦА ПРОДУКТОВ (САЙДБАР) --- */
+.products-page-layout { padding: 60px 0; }
+.products-wrapper { display: flex; gap: 50px; align-items: flex-start; }
+.products-sidebar { width: 280px; flex-shrink: 0; }
+.sidebar-title { font-size: 24px; font-weight: 800; margin-bottom: 30px; color: #333; }
+.sidebar-list { list-style: none; border-top: 1px solid #eee; }
+.sidebar-list li { border-bottom: 1px solid #eee; }
+.sidebar-list li a { display: block; padding: 12px 0; padding-left: 15px; text-decoration: none; color: #666; font-size: 14px; position: relative; transition: 0.3s; }
+.sidebar-list li a::before { content: "—"; position: absolute; left: 0; color: #CC2222; }
+.sidebar-list li a:hover { color: #CC2222; padding-left: 20px; }
+
+/* --- ФУТЕР --- */
+.simple-footer { padding: 40px 0; text-align: center; border-top: 1px solid #eee; color: #999; font-size: 13px; }
+/* --- СТРАНИЦА АКСЕССУАРОВ --- */
+.accessories-page {
+    padding: 60px 0 100px;
+    background-color: #fcfcfc;
+}
+
+.section-intro {
+    text-align: center;
+    color: #666;
+    margin-bottom: 50px;
+    font-size: 16px;
+}
+
+/* Сетка аксессуаров */
+.accessories-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+}
+
+.accessory-card {
+    background: #fff;
+    border: 1px solid #eee;
+    padding: 40px 25px;
+    text-align: center;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+}
+
+.acc-img-box {
+    font-size: 50px;
+    margin-bottom: 20px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.accessory-card h3 {
+    font-size: 18px;
+    margin-bottom: 15px;
+    color: #003366;
+}
+
+.accessory-card p {
+    font-size: 14px;
+    color: #777;
+    line-height: 1.5;
+}
+
+/* Эффект при наведении */
+.accessory-card:hover {
+    border-color: #CC2222;
+    transform: translateY(-10px);
+    box-shadow: 0 15px 35px rgba(204, 34, 34, 0.1);
+}
+/* --- СТИЛИ ДЛЯ СТРАНИЦЫ НОВОСТЕЙ --- */
+.news-page-wrapper {
+    padding: 80px 0;
+}
+
+.container-news {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Красные линии вокруг слова Новости */
+.news-title-divider {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.news-title-divider::before,
+.news-title-divider::after {
+    content: '';
+    flex: 1;
+    border-bottom: 2px solid #CC2222;
+}
+
+.divider-text {
+    padding: 0 30px;
+    font-size: 42px;
+    font-weight: 800;
+    color: #333;
+    text-transform: uppercase;
+}
+
+/* --- ДИНАМИЧЕСКИЕ СЕКЦИИ: товары/проекты --- */
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 24px;
+    margin-top: 30px;
+}
+
+.product-card {
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.product-card:hover {
+    border-color: #CC2222;
+    transform: translateY(-8px);
+    box-shadow: 0 15px 35px rgba(204, 34, 34, 0.10);
+}
+
+.product-card__img img {
+    width: 100%;
+    height: 190px;
+    object-fit: cover;
+    display: block;
+}
+
+.product-card__body {
+    padding: 18px 18px 20px;
+}
+
+.product-card__meta {
+    font-size: 12px;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-bottom: 8px;
+}
+
+.product-card__title {
+    font-size: 18px;
+    color: #003366;
+    margin-bottom: 10px;
+}
+
+.product-card__text {
+    font-size: 14px;
+    color: #777;
+    line-height: 1.5;
+    margin-bottom: 14px;
+}
+
+.btn-red {
+    display: inline-block;
+    background: #CC2222;
+    color: #fff;
+    text-decoration: none;
+    padding: 10px 16px;
+    border-radius: 10px;
+    font-weight: 700;
+    transition: 0.25s;
+}
+
+.btn-red:hover { opacity: 0.9; }
+
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    margin-top: 30px;
+}
+
+.project-card {
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.project-card:hover {
+    border-color: #CC2222;
+    transform: translateY(-8px);
+    box-shadow: 0 15px 35px rgba(204, 34, 34, 0.10);
+}
+
+.project-card__img img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    display: block;
+}
+
+.project-card__body {
+    padding: 18px;
+}
+
+.project-card__title {
+    font-size: 18px;
+    color: #003366;
+    margin-bottom: 10px;
+}
+
+.project-card__text {
+    font-size: 14px;
+    color: #777;
+    line-height: 1.5;
+}
+
+.news-date {
+    margin-top: 8px;
+    font-size: 12px;
+    color: #999;
+}
+
+/* Список с красными точками */
+.custom-news-list {
+    list-style: none;
+    margin-top: 30px;
+}
+
+.custom-news-list li {
+    position: relative;
+    padding-left: 30px;
+    margin-bottom: 25px;
+    font-size: 17px;
+    line-height: 1.6;
+    color: #444;
+}
+
+.custom-news-list li::before {
+    content: "•";
+    color: #CC2222; /* Красный цвет точки */
+    font-size: 32px;
+    position: absolute;
+    left: 0;
+    top: -8px;
+    font-weight: bold;
+}
+
+.made-in {
+    font-size: 13px;
+    color: #bbb;
+    margin-top: 80px;
+    text-align: center;
+}
+/* Убираем синий цвет и подчеркивание у ссылок-карточек */
+.category-card-link {
+    text-decoration: none; /* Убирает подчеркивание */
+    color: inherit;       /* Заставляет текст быть того же цвета, что и раньше (#333) */
+    display: block;        /* Чтобы вся область карточки была кликабельной */
+}
+
+.category-card-link:hover {
+    text-decoration: none; /* Чтобы при наведении не появлялось подчеркивание */
+    color: inherit;
+}
+
+/* На всякий случай фиксируем цвет заголовков внутри карточек */
+.category-card h3 {
+    color: #333; 
+    margin-top: 15px;
+    font-size: 16px;
+    font-weight: 700;
+}
+/* --- ОБНОВЛЕННЫЙ РАЗМЕР ЛОГОТИПА --- */
+.main-logo {
+    height: 85px; /* Увеличили размер, чтобы логотип стал заметнее */
+    width: auto;  /* Ширина подстроится автоматически, чтобы не искажать пропорции */
+    display: block;
+    transition: transform 0.3s ease;
+    margin-top: -5px; /* Небольшая корректировка, если логотип кажется слишком низко */
+}
+
+/* Сохраняем приятный эффект при наведении */
+.main-logo:hover {
+    transform: scale(1.03);
+}
+
+/* Центрируем логотип в блоке, если нужно */
+.logo {
+    display: flex;
+    align-items: center;
+}
+/* 1. Делаем номер телефона черным и крупным */
+.phone-link {
+    text-decoration: none;
+    color: #000000; /* Чистый черный цвет */
+    font-weight: 800; /* Сделаем его еще жирнее */
+    font-size: 17px;  /* Увеличенный размер конкретно для номера */
+    transition: 0.3s;
+}
+
+.phone-link:hover {
+    color: #CC2222; /* При наведении останется фирменный красный */
+}
+
+/* 2. Прибавляем шрифт всем словам в инфо-панели (адрес, почта) */
+.header-info {
+    display: flex;
+    gap: 30px;
+    font-size: 16px; /* Было 13-14px, теперь текст стал заметнее */
+    color: #333;    /* Сделаем остальные контакты чуть темнее для четкости */
+    align-items: center;
+}
+
+/* 3. Увеличиваем шрифт в главном меню навигации */
+.main-nav li a {
+    display: block;
+    padding: 18px 28px;
+    text-decoration: none;
+    color: #333;
+    font-weight: 700;
+    font-size: 16px; /* Увеличенный размер пунктов меню */
+    transition: 0.3s;
+}
+/* Возвращаем почте цвет основного текста */
+.email-link {
+    text-decoration: none; /* Убираем синее подчеркивание */
+    color: #333;           /* Возвращаем стандартный темно-серый цвет */
+    font-weight: 700;      /* Сохраняем выразительность шрифта */
+    transition: 0.3s;
+}
+
+/* Эффект при наведении оставляем аккуратным */
+.email-link:hover {
+    color: #CC2222;       /* При наведении подсвечиваем фирменным красным */
+    text-decoration: none; /* Чтобы подчеркивание не появлялось и при наведении */
+}
+/* Полностью удаляем выпадающее поведение */
+.main-nav ul li ul, 
+.dropdown-menu, 
+.submenu {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+}
+
+/* Убираем стрелочки (каретки) возле слова ПРОДУКТЫ, если они есть */
+.main-nav li a::after {
+    content: none !important;
+}
+/* 1. Уменьшаем контакты (адрес и почту) */
+.header-info {
+    display: flex;
+    gap: 25px;
+    font-size: 13px; /* Было 16px, возвращаем к аккуратному размеру */
+    color: #555;
+    align-items: center;
+}
+
+/* 2. Делаем номер телефона заметным, но не огромным */
+.phone-link {
+    text-decoration: none;
+    color: #000000;
+    font-weight: 700;
+    font-size: 14px;  /* Было 17px, теперь он в гармонии с остальным текстом */
+    transition: 0.3s;
+}
+
+/* 3. Уменьшаем шрифт в главном меню навигации */
+.main-nav li a {
+    display: block;
+    padding: 15px 22px;
+    text-decoration: none;
+    color: #333;
+    font-weight: 700;
+    font-size: 13px; /* Оптимальный размер для чистой навигации */
+    text-transform: uppercase;
+    transition: 0.3s;
+}
+
+/* 4. Немного уменьшаем логотип, чтобы он не «давил» на шапку */
+.main-logo {
+    height: 85px; /* Снижаем со 110px до 85px для баланса */
+    width: auto;
+    display: block;
+}
+/* Контейнер всей верхней части шапки */
+.top-bar .container {
+    display: flex;
+    justify-content: space-between; /* Распределяем: лого слева, кнопка справа, инфо в центре */
+    align-items: center;
+    flex-wrap: nowrap; /* СТРОГО запрещаем перенос на вторую строку */
+    padding: 10px 20px;
+    gap: 15px; /* Небольшой отступ между блоками */
+}
+
+/* Группа с контактами и языками */
+.header-info {
+    display: flex;
+    align-items: center;
+    gap: 20px; /* Расстояние между адресом, почтой и телефоном */
+    white-space: nowrap; /* Запрещаем тексту внутри блоков переноситься */
+    flex: 1; /* Позволяет блоку занимать свободное место в центре */
+    justify-content: center;
+}
+
+/* Стиль для каждого элемента (адрес, почта, телефон) */
+.info-item {
+    display: flex;
+    align-items: center;
+    font-size: 13px; /* Оптимальный размер, чтобы всё влезло */
+    gap: 5px;
+}
+
+/* Переключатель языков в той же строке */
+.lang-switcher {
+    display: flex;
+    gap: 4px;
+    margin-left: 10px;
+    border-left: 1px solid #ddd; /* Тонкая разделительная линия */
+    padding-left: 15px;
+}
+
+/* Кнопка "Запросить звонок" */
+.btn-call {
+    white-space: nowrap; /* Чтобы текст в кнопке не переносился */
+    padding: 10px 20px;
+    font-size: 14px;
+    background-color: #CC2222; /* Наш фирменный красный */
+}
+.top-bar .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: nowrap; /* СТРОГО запрещаем перенос */
+}
+
+.header-info {
+    display: flex;
+    gap: 15px; /* Немного уменьшим расстояние, чтобы всё влезло на любом языке */
+    white-space: nowrap; /* Текст не ломается на две строки */
+}
+/* 1. Контейнер слайдера (Основа) */
+.hero-slider {
+    width: 100%;
+    overflow: hidden; /* Скрывает слайды, которые не в фокусе */
+    position: relative;
+    background-color: #f4f4f4; /* Светлый фон баннера */
+}
+
+/* 2. Обертка, которая двигает слайды */
+.hero-slides-wrapper {
+    display: flex; /* Выстраивает Металлочерепицу и Водостоки в одну линию */
+    transition: transform 1s ease-in-out; /* Плавность перелистывания */
+    width: 200%; /* Суммарная ширина двух слайдов */
+}
+
+/* 3. Одиночный слайд */
+.hero-slide {
+    min-width: 50%; /* Занимает ровно 100% видимой области слайдера */
+    box-sizing: border-box;
+}
+
+/* 4. Расположение контента внутри слайда */
+.hero-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 60px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.hero-content {
+    flex: 1;
+    padding-right: 50px;
+}
+
+/* 5. Анимация покачивания товара */
+.hero-image {
+    flex: 0 0 450px;
+}
+
+.hero-image img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    animation: floating-complex 4s ease-in-out infinite; /* Эффект парения */
+}
+
+@keyframes floating-complex {
+    0% { transform: translate(0, 0) rotate(0deg); }
+    25% { transform: translate(10px, -10px) rotate(2deg); }
+    50% { transform: translate(0, -20px) rotate(0deg); }
+    75% { transform: translate(-10px, -10px) rotate(-2deg); }
+    100% { transform: translate(0, 0) rotate(0deg); }
+}
+
+/* 6. Навигационные точки (Индикаторы) */
+.slider-dots {
+    position: absolute;
+    bottom: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 12px;
+    z-index: 10;
+}
+
+.dot {
+    width: 12px;
+    height: 12px;
+    border: 2px solid #CC2222; /* Красная обводка */
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.dot.active {
+    background-color: #CC2222; /* Закрашенная активная точка */
+}
+/* Настройки картинки в слайдере */
+.hero-image img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    
+    /* Фиксируем центр как точку вращения */
+    transform-origin: center center; 
+    
+    /* Применяем бесконечную анимацию (infinite) */
+    animation: constant-sway 4s ease-in-out infinite;
+}
+
+/* Анимация постоянного маятника */
+@keyframes constant-sway {
+    0% {
+        transform: rotate(-3deg); /* Начинаем с наклона влево */
+    }
+    50% {
+        transform: rotate(3deg);  /* Плавно переходим к наклону вправо */
+    }
+    100% {
+        transform: rotate(-3deg); /* Возвращаемся в исходную левую точку */
+    }
+}
+.category-grid { 
+    display: grid; 
+    /* Карточки будут подстраиваться под размер экрана, минимум 220px каждая */
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); 
+    gap: 20px; 
+    max-width: 1200px; 
+    margin: 0 auto; 
+    padding: 0 15px; 
+}
+/* Контейнер, скрывающий лишнее */
+.category-slider-container {
+    width: 100%;
+    overflow: hidden;
+    padding: 20px 0;
+    position: relative;
+}
+
+/* Трек, который будет двигаться */
+.category-slider-track {
+    display: flex;
+    gap: 20px;
+    width: max-content; /* Позволяет треку быть длиннее экрана */
+    animation: scrollCategories 30s linear infinite; /* Медленно и бесконечно */
+}
+
+/* Остановка при наведении, чтобы пользователь мог кликнуть на карточку */
+.category-slider-track:hover {
+    animation-play-state: paused;
+}
+
+/* Настройки карточек внутри слайдера */
+.category-slider-track .category-card-link {
+    width: 250px; /* Фиксированная ширина карточки в ленте */
+    flex-shrink: 0;
+}
+
+/* Сама анимация движения */
+@keyframes scrollCategories {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        /* Двигаем ровно на половину длины трека (так как мы продублировали элементы) */
+        transform: translateX(-50%);
+    }
+}
+/* ==========================================================================
+   МОБИЛЬНАЯ АДАПТАЦИЯ (Эккраны до 768px)
+   ========================================================================== */
+@media (max-width: 768px) {
+    
+    /* 1. Шапка: элементы в столбик */
+    .top-bar .container {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+        padding: 15px 10px;
+    }
+
+    .header-info {
+        flex-direction: column;
+        gap: 10px;
+        width: 100%;
+        white-space: normal; /* Разрешаем перенос текста */
+    }
+
+    .lang-switcher {
+        justify-content: center;
+        border-left: none;
+        padding-left: 0;
+        margin-top: 10px;
+    }
+
+    /* 2. Навигация: горизонтальный скролл пальцем */
+    .main-nav ul {
+        display: flex;
+        overflow-x: auto;
+        justify-content: flex-start;
+        padding: 10px 5px;
+        -webkit-overflow-scrolling: touch; /* Плавный скролл на iPhone */
+    }
+
+    .main-nav li a {
+        padding: 10px 15px;
+        font-size: 12px;
+    }
+
+    /* 3. Главный баннер: текст сверху, картинка снизу */
+    .hero-container {
+        flex-direction: column;
+        text-align: center;
+        padding: 30px 15px;
+    }
+
+    .hero-content {
+        padding-right: 0;
+        margin-bottom: 20px;
+    }
+
+    .hero-title {
+        font-size: 26px; /* Уменьшаем заголовок для экрана телефона */
+    }
+
+    .hero-image {
+        flex: 0 0 auto;
+        width: 100%;
+        max-width: 300px; /* Чтобы картинка не была огромной */
+        margin: 0 auto;
+    }
+
+    /* 4. Бесконечный слайдер категорий: подгоняем размер */
+    .category-slider-track .category-card-link {
+        width: 200px; /* Чуть меньше карточки на мобильных */
+    }
+
+    /* 5. Карта и контакты в футере */
+    .footer-map-area {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .contact-card-overlay {
+        position: static; /* Убираем наложение на карту */
+        transform: none;
+        width: 100%;
+        border-radius: 0;
+        box-shadow: none;
+    }
+
+    iframe {
+        height: 250px; /* Уменьшаем высоту карты */
+    }
+}

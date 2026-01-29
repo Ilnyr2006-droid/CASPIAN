@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="nav_news">Новости — CASPIAN</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="top-bar">
+            <div class="container">
+                <div class="logo">
+                    <a href="index.html"><img src="Caspian.jpg" class="main-logo" alt="CASPIAN"></a>
+                </div>
+                <div class="header-info">
+                    <div class="info-item">📍 <span data-i18n="addr">Грузия, Гардабани</span></div>
+                    <div class="info-item">📧 <a href="mailto:info@caspianmetal.ge" class="email-link">info@caspianmetal.ge</a></div>
+                    <div class="info-item">📞 <a href="tel:+995598918484" class="phone-link">+995 598 91 84 84</a></div>
+                    
+                    <div class="lang-switcher">
+                        <button onclick="changeLanguage('ru')" class="lang-btn" id="btn-ru">RU</button>
+                        <button onclick="changeLanguage('ka')" class="lang-btn" id="btn-ka">GE</button>
+                        <button onclick="changeLanguage('az')" class="lang-btn" id="btn-az">AZ</button>
+                        <button onclick="changeLanguage('en')" class="lang-btn" id="btn-en">EN</button>
+                    </div>
+                </div>
+                <a href="https://wa.me/995598918484" class="btn-call" target="_blank" data-i18n="btn_call">Запросить звонок</a>
+            </div>
+        </div>
+
+        <nav class="main-nav">
+            <div class="container">
+                <ul>
+                    <li><a href="news.html" class="active" data-i18n="nav_news">НОВОСТИ</a></li>
+                    <li><a href="projects.html" data-i18n="nav_projects">ПРОЕКТЫ</a></li>
+                    <li><a href="products.html" data-i18n="nav_products">ПРОДУКТЫ</a></li>
+                    <li><a href="contacts.html" data-i18n="nav_contacts">КОНТАКТЫ</a></li>
+                    <li><a href="about.html" data-i18n="nav_about">О НАС</a></li>
+                    <li><a href="products.html?cat=Аксессуары" data-i18n="nav_accs">АКСЕССУАРЫ</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main class="news-page-wrapper">
+        <div class="container-news">
+            <div class="news-title-divider">
+                <h2 class="divider-text" data-i18n="nav_news">Новости</h2>
+            </div>
+            
+            <div class="news-list-container">
+                <ul class="custom-news-list" id="news-list"></ul>
+                <div id="news-empty" class="empty-products-placeholder" style="display:none; margin-top:20px;">
+                    <p>Пока нет новостей.</p>
+                </div>
+            </div>
+            
+            <p class="made-in" data-i18n="made_in">Сделано в Caspian</p>
+        </div>
+    </main>
+
+    <div class="bottom-credits">
+        <p data-i18n="footer_copy">© Caspian Metal Company. Все права защищены.</p>
+    </div>
+
+    <script src="translations.js"></script>
+    <script src="lang.js"></script>
+    <script src="js/dynamic-common.js"></script>
+    <script src="js/dynamic-news.js"></script>
+</body>
+</html>

@@ -1,0 +1,20 @@
+{
+  "projects": [
+    {
+      "id": "prj-001",
+      "title": {
+        "ru": "Проект #1",
+        "ka": "პროექტი #1",
+        "az": "Layihə #1",
+        "en": "Project #1"
+      },
+      "short": {
+        "ru": "Краткое описание проекта — добавьте фото и детали.",
+        "ka": "პროექტის მოკლე აღწერა — დაამატეთ ფოტო და დეტალები.",
+        "az": "Layihənin qısa təsviri — şəkil və detalları əlavə edin.",
+        "en": "Short project description — add photos and details."
+      },
+      "image": "main-photo.jpg"
+    }
+  ]
+}

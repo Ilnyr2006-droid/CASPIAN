@@ -1,0 +1,44 @@
+{
+  "news": [
+    {
+      "id": "news-001",
+      "date": "2026-01-10",
+      "text": {
+        "ru": "Важная новость от компании \"Caspian\" — производство металлоконструкций (ЛСТК), которые широко используются в строительстве.",
+        "ka": "მნიშვნელოვანი სიახლე კომპანია \"Caspian\"-სგან — ლითონის კონსტრუქციების (ЛСТК) წარმოება, რომლებიც ფართოდ გამოიყენება მშენებლობაში.",
+        "az": "\"Caspian\" şirkətindən vacib xəbər — tikintidə geniş istifadə olunan metal konstruksiyaların (LSTK) istehsalı.",
+        "en": "Important update from Caspian: production of steel structures (LSTK) widely used in construction."
+      }
+    },
+    {
+      "id": "news-002",
+      "date": "2026-01-15",
+      "text": {
+        "ru": "Новая услуга — лазерная резка металла толщиной до 22 мм.",
+        "ka": "ახალი სერვისი — ლითონის ლაზერული ჭრა 22 მმ-მდე სისქით.",
+        "az": "Yeni xidmət — 22 mm-ə qədər qalınlıqda metalın lazerlə kəsilməsi.",
+        "en": "New service: laser cutting of metal up to 22 mm thickness."
+      }
+    },
+    {
+      "id": "news-003",
+      "date": "2026-01-20",
+      "text": {
+        "ru": "Потолок из гипсокартона, профили и аксессуары для производства.",
+        "ka": "თაბაშირ-მუყაოს ჭერი, პროფილები და აქსესუარები წარმოებისთვის.",
+        "az": "Gipskarton tavan, profillər və istehsal üçün aksessuarlar.",
+        "en": "Drywall ceiling, profiles and accessories for production."
+      }
+    },
+    {
+      "id": "news-004",
+      "date": "2026-01-24",
+      "text": {
+        "ru": "Вентиляционные трубы и аксессуары для производства.",
+        "ka": "სავენტილაციო მილები და აქსესუარები წარმოებისთვის.",
+        "az": "İstehsal üçün ventilyasiya boruları və aksessuarlar.",
+        "en": "Ventilation pipes and accessories for production."
+      }
+    }
+  ]
+}
