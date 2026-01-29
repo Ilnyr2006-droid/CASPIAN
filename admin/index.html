@@ -5,46 +5,53 @@
     <title>CASPIAN — Админка</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <!-- Netlify Identity -->
+    <!-- Netlify Identity (обязательно ДО cms) -->
     <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 
-    <!-- Decap CMS -->
-    <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+    <style>
+      body { margin: 0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial; }
+    </style>
   </head>
 
   <body>
+    <!-- корневой контейнер CMS -->
+    <div id="nc-root"></div>
+
+    <!-- Decap CMS -->
+    <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+    
     <script>
-      // === ВСЕГДА корректный hash ===
-      if (!location.hash || location.hash === "#") {
-        location.hash = "#/";
-      }
+      // нормализуем hash (Decap любит #/)
+      if (!location.hash || location.hash === "#") location.hash = "#/";
 
       function hasToken() {
         const h = location.hash || "";
         return /invite_token=|recovery_token=|confirmation_token=/.test(h);
       }
 
+      // Identity: открываем логин только если НЕ залогинен
       if (window.netlifyIdentity) {
-        window.netlifyIdentity.on("init", function (user) {
-          // Если пришли по токену (invite / recovery)
+        window.netlifyIdentity.on("init", (user) => {
+          // если пришли по invite/recovery/confirm токену — откроем окно
           if (hasToken()) {
             window.netlifyIdentity.open();
             return;
           }
 
-          // Если не залогинен — сразу открыть логин
+          // если нет пользователя — открываем логин и НЕ редиректим
           if (!user) {
             window.netlifyIdentity.open("login");
           }
         });
 
-        window.netlifyIdentity.on("login", function () {
-          // После логина остаёмся в админке
-          document.location.href = "/admin/#/";
-        });
-
-        window.netlifyIdentity.on("logout", function () {
-          document.location.href = "/admin/#/";
+        // после успешного логина — просто закрываем окно, cms сам подхватит
+        window.netlifyIdentity.on("login", () => {
+          window.netlifyIdentity.close();
+          // на всякий случай обновим страницу, но без потери #/
+          setTimeout(() => {
+            if (!location.hash || location.hash === "#") location.hash = "#/";
+            location.reload();
+          }, 150);
         });
       }
     </script>
