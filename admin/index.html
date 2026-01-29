@@ -1,8 +1,34 @@
 <script>
-  (function () {
-    if (!window.netlifyIdentity) return;
+  // Функция обработки токенов и входа
+  function handleNetlifyEvents() {
+    const h = window.location.hash || "";
+    const user = window.netlifyIdentity.currentUser();
 
-    // handlers — один раз
+    // 1. Если пользователя нет, а в ссылке есть токен — чиним хеш и открываем виджет
+    if (!user && (h.includes("confirmation_token") || h.includes("recovery_token"))) {
+      
+      let newHash = h;
+      
+      // Добавляем type, если его нет (для подтверждения почты)
+      if (h.includes("confirmation_token") && !h.includes("type=confirmation")) {
+        newHash = h + "&type=confirmation";
+      }
+      
+      // Добавляем type, если его нет (для сброса пароля)
+      if (h.includes("recovery_token") && !h.includes("type=recovery")) {
+        newHash = h + "&type=recovery";
+      }
+
+      // Если хеш изменился — обновляем его БЕЗ перезагрузки и БЕЗ return
+      if (newHash !== h) {
+        window.history.replaceState(null, null, newHash);
+      }
+
+      // ВАЖНО: Мы не делаем return, мы сразу открываем окно
+      window.netlifyIdentity.open();
+    }
+
+    // 2. Обработчики входа и выхода
     window.netlifyIdentity.on("login", () => {
       document.location.href = "/admin/";
     });
@@ -10,32 +36,20 @@
     window.netlifyIdentity.on("logout", () => {
       document.location.href = "/";
     });
+  }
 
-    function handleTokenHash() {
-      const h = window.location.hash || "";
-      const user = window.netlifyIdentity.currentUser && window.netlifyIdentity.currentUser();
-
-      if (user) return;
-
-      if (h.includes("confirmation_token")) {
-        if (!h.includes("type=confirmation")) {
-          window.location.hash = h + "&type=confirmation";
-          return; // hash обновился — дадим странице применить
-        }
-        window.netlifyIdentity.open();
+  // ГЛАВНАЯ ЧАСТЬ: Гарантируем, что Netlify загружен перед запуском
+  if (window.netlifyIdentity) {
+    // Если уже загружен — запускаем логику
+    window.netlifyIdentity.on("init", handleNetlifyEvents);
+    // На случай, если init уже прошел — вызываем вручную
+    handleNetlifyEvents();
+  } else {
+    // Если еще не загружен — ждем события загрузки документа, потом проверяем
+    document.addEventListener("DOMContentLoaded", () => {
+      if (window.netlifyIdentity) {
+        window.netlifyIdentity.on("init", handleNetlifyEvents);
       }
-
-      if (h.includes("recovery_token")) {
-        if (!h.includes("type=recovery")) {
-          window.location.hash = h + "&type=recovery";
-          return;
-        }
-        window.netlifyIdentity.open();
-      }
-    }
-
-    // инициализация + подстраховка
-    window.netlifyIdentity.on("init", handleTokenHash);
-    handleTokenHash();
-  })();
+    });
+  }
 </script>
