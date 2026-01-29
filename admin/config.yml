@@ -22,6 +22,7 @@ collections:
               - { label: "ID", name: "id", widget: "string" }
               - { label: "Категория", name: "category", widget: "string" }
               - { label: "Картинка", name: "image", widget: "image", required: false }
+
               - label: "Название"
                 name: "title"
                 widget: "object"
@@ -30,6 +31,7 @@ collections:
                   - { label: "KA", name: "ka", widget: "string", required: false }
                   - { label: "AZ", name: "az", widget: "string", required: false }
                   - { label: "EN", name: "en", widget: "string", required: false }
+
               - label: "Короткое описание"
                 name: "short"
                 widget: "object"
@@ -38,9 +40,10 @@ collections:
                   - { label: "KA", name: "ka", widget: "text", required: false }
                   - { label: "AZ", name: "az", widget: "text", required: false }
                   - { label: "EN", name: "en", widget: "text", required: false }
-              - { label: "Единица (опц.)", name: "unit", widget: "string", required: false }
-              - { label: "Цена (опц.)", name: "price", widget: "string", required: false }
-              - { label: "Порядок (опц.)", name: "sort", widget: "number", required: false, value_type: "int" }
+
+              - { label: "Единица", name: "unit", widget: "string", required: false }
+              - { label: "Цена", name: "price", widget: "string", required: false }
+              - { label: "Порядок", name: "sort", widget: "number", required: false, value_type: "int" }
 
   - name: "news"
     label: "Новости"
@@ -56,7 +59,8 @@ collections:
             summary: "{{fields.date}} — {{fields.title.ru}}"
             fields:
               - { label: "ID", name: "id", widget: "string" }
-              - { label: "Дата", name: "date", widget: "datetime", format: "YYYY-MM-DD", time_format: false }
+              - { label: "Дата", name: "date", widget: "string", hint: "YYYY-MM-DD" }
+
               - label: "Заголовок"
                 name: "title"
                 widget: "object"
@@ -65,6 +69,7 @@ collections:
                   - { label: "KA", name: "ka", widget: "string", required: false }
                   - { label: "AZ", name: "az", widget: "string", required: false }
                   - { label: "EN", name: "en", widget: "string", required: false }
+
               - label: "Текст"
                 name: "text"
                 widget: "object"
@@ -73,7 +78,8 @@ collections:
                   - { label: "KA", name: "ka", widget: "text", required: false }
                   - { label: "AZ", name: "az", widget: "text", required: false }
                   - { label: "EN", name: "en", widget: "text", required: false }
-              - { label: "Картинка (опц.)", name: "image", widget: "image", required: false }
+
+              - { label: "Картинка", name: "image", widget: "image", required: false }
 
   - name: "projects"
     label: "Проекты"
@@ -89,6 +95,7 @@ collections:
             summary: "{{fields.id}} — {{fields.title.ru}}"
             fields:
               - { label: "ID", name: "id", widget: "string" }
+
               - label: "Название"
                 name: "title"
                 widget: "object"
@@ -97,7 +104,8 @@ collections:
                   - { label: "KA", name: "ka", widget: "string", required: false }
                   - { label: "AZ", name: "az", widget: "string", required: false }
                   - { label: "EN", name: "en", widget: "string", required: false }
-              - label: "Описание (коротко)"
+
+              - label: "Описание"
                 name: "short"
                 widget: "object"
                 fields:
@@ -105,5 +113,6 @@ collections:
                   - { label: "KA", name: "ka", widget: "text", required: false }
                   - { label: "AZ", name: "az", widget: "text", required: false }
                   - { label: "EN", name: "en", widget: "text", required: false }
-              - { label: "Картинка (опц.)", name: "image", widget: "image", required: false }
-              - { label: "Дата (опц.)", name: "date", widget: "datetime", format: "YYYY-MM-DD", time_format: false, required: false }
+
+              - { label: "Картинка", name: "image", widget: "image", required: false }
+              - { label: "Дата", name: "date", widget: "string", required: false, hint: "YYYY-MM-DD" }
