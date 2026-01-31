@@ -18,7 +18,7 @@ jobs:
       - name: Set up SSH
         uses: webfactory/ssh-agent@v0.5.3
         with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+          ssh-private-key: ${{ ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCqzDdV+iU0wlahlizXuimJGEqcnXy3lihxYi6WvcfCH4cTWpdIQRYNs8OK0HwO6qiHfSYyyNQP4Q3Q3kVSWI/ZHR9pMV6TJxNa+E7abmMG5JZBPjveAdt+WJDRcKHUQJfLmgwv89TC7JYjvS2mdNMPuHWKhpOaEXzvm70xyN77oAx1IA1jUBNdwaSu0hNbEUnwVwq2a70ckwcQJHMXP9HuW6VTah5DSqkLWWGk+ZkGhoANzSZVGkuxFqww3gUjH9ddlXb+ppsAiwbNguGD7c2sXp6jM1uWS1ekMt8psKM24Oehg9zTCQb0ALExlgPiywvCj1EuZq7+U8Lp2adQsCwar7qPZVJsI0gIEAZIZIVvOueNgaCG3RFFj5v31jDH/BMhqDXmooMJtvM62ott9hukzcfZJ6/9yiLR5vjbp7TSVncCzBjH256+Ue52aG5ns4YAS3K+CLHUW1Yt0MmG5QNor7K+xJIMTMsOPZdIM8idBoeXjENjXJ9zu5XdJj5Y1pjRAzV+kY6N5+0IEqNFltUFgxfYsFbdJVBU1uf0i4scS5MM8VSdJ7M2zlAIjxZaITVFZY26WagKUXqurf7ZkFUODPFdWcqn/BBBtl1diRSQSDa7tKNrhV4E3fOXHIGXqECxzKuyAHgv5AjnKyR/003gV1x7dlKwydfWZkZrqvP1eQ== ilnur1234567890111213141516@gmail.com }}
 
       # Шаг 3: Выполняем деплой на сервер
       - name: Deploy to Server
