@@ -1,5 +1,5 @@
 backend:
-  name: git-gateway
+  name: github
   repo: your-github-username/repository-name  # Можно оставить, если нужно использовать Git для хранения контента.
   branch: main
   base_url: https://caspianmetal.ge
