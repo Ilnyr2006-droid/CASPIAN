@@ -1,6 +1,9 @@
 backend:
-  name: git-gateway
+  name: github
+  repo: ilnyr2006-droid/CASPIAN # Например: ilnur/caspian-metal
   branch: main
+  base_url: https://caspianmetal.ge
+  auth_endpoint: auth
 
 media_folder: "uploads"
 public_folder: "/uploads"
