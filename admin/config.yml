@@ -1,9 +1,7 @@
 backend:
-  name: github
-  repo: Ilnyr2006-droid/CASPIAN  # Можно оставить, если нужно использовать Git для хранения контента.
-  branch: main
-  base_url: https://caspianmetal.ge
-  auth_endpoint: auth  # Укажи на нужный эндпоинт для локальной аутентификации
+  name: proxy
+  proxy_url: https://caspianmetal.ge/api/v1
+  branch: main  # Проверьте, что ветка называется main (или master)
 
 media_folder: "uploads"
 public_folder: "/uploads"
