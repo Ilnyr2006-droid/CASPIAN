@@ -5,7 +5,6 @@
     <title>CASPIAN — Админка</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <!-- Netlify Identity (обязательно ДО cms) -->
     <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 
     <style>
@@ -14,44 +13,32 @@
   </head>
 
   <body>
-    <!-- корневой контейнер CMS -->
-    <div id="nc-root"></div>
-
-    <!-- Decap CMS -->
     <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
     
     <script>
-      // нормализуем hash (Decap любит #/)
-      if (!location.hash || location.hash === "#") location.hash = "#/";
-
-      function hasToken() {
-        const h = location.hash || "";
-        return /invite_token=|recovery_token=|confirmation_token=/.test(h);
-      }
-
-      // Identity: открываем логин только если НЕ залогинен
       if (window.netlifyIdentity) {
+        // Инициализация
         window.netlifyIdentity.on("init", (user) => {
-          // если пришли по invite/recovery/confirm токену — откроем окно
-          if (hasToken()) {
-            window.netlifyIdentity.open();
-            return;
-          }
-
-          // если нет пользователя — открываем логин и НЕ редиректим
           if (!user) {
-            window.netlifyIdentity.open("login");
+            // Если юзер не вошел и это не письмо-приглашение — просим логин
+            if (!window.location.hash.includes("invite_token") && 
+                !window.location.hash.includes("recovery_token") && 
+                !window.location.hash.includes("confirmation_token")) {
+              window.netlifyIdentity.open("login");
+            }
           }
         });
 
-        // после успешного логина — просто закрываем окно, cms сам подхватит
+        // Событие логина
         window.netlifyIdentity.on("login", () => {
+          // Закрываем окно, CMS сама подхватит данные из localStorage
           window.netlifyIdentity.close();
-          // на всякий случай обновим страницу, но без потери #/
-          setTimeout(() => {
-            if (!location.hash || location.hash === "#") location.hash = "#/";
-            location.reload();
-          }, 150);
+        });
+
+        // Событие логаута
+        window.netlifyIdentity.on("logout", () => {
+          // При выходе просто освежаем страницу входа
+          document.location.href = "/admin/";
         });
       }
     </script>
