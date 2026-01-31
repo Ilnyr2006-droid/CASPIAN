@@ -1,15 +1,21 @@
 backend:
-  name: github
-  repo: ilnyr2006-droid/CASPIAN # Например: ilnur/caspian-metal
+  name: git-gateway
+  repo: your-github-username/repository-name  # Можно оставить, если нужно использовать Git для хранения контента.
   branch: main
   base_url: https://caspianmetal.ge
-  auth_endpoint: auth
+  auth_endpoint: auth  # Укажи на нужный эндпоинт для локальной аутентификации
 
 media_folder: "uploads"
 public_folder: "/uploads"
 
 publish_mode: simple
 locale: "ru"
+
+# Опция для включения локальной аутентификации
+local:
+  username: "Caspian"    # Укажи имя пользователя для админки
+  password: "ShatzerHunter8"  # Укажи пароль для доступа к админке
+
 
 collections:
   - name: "products"
