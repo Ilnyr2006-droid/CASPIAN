@@ -1,46 +1,11 @@
 <!doctype html>
-<html lang="ru">
-  <head>
-    <meta charset="utf-8" />
-    <title>CASPIAN — Админка</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-
-    <style>
-      body { margin: 0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial; }
-    </style>
-  </head>
-
-  <body>
-    <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
-    
-    <script>
-      if (window.netlifyIdentity) {
-        // Инициализация
-        window.netlifyIdentity.on("init", (user) => {
-          if (!user) {
-            // Если юзер не вошел и это не письмо-приглашение — просим логин
-            if (!window.location.hash.includes("invite_token") && 
-                !window.location.hash.includes("recovery_token") && 
-                !window.location.hash.includes("confirmation_token")) {
-              window.netlifyIdentity.open("login");
-            }
-          }
-        });
-
-        // Событие логина
-        window.netlifyIdentity.on("login", () => {
-          // Закрываем окно, CMS сама подхватит данные из localStorage
-          window.netlifyIdentity.close();
-        });
-
-        // Событие логаута
-        window.netlifyIdentity.on("logout", () => {
-          // При выходе просто освежаем страницу входа
-          document.location.href = "/admin/";
-        });
-      }
-    </script>
-  </body>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Content Manager</title>
+</head>
+<body>
+  <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+</body>
 </html>
