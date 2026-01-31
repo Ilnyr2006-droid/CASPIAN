@@ -1,6 +1,6 @@
 backend:
   name: github
-  repo: your-github-username/repository-name  # Можно оставить, если нужно использовать Git для хранения контента.
+  repo: Ilnyr2006-droid/CASPIAN  # Можно оставить, если нужно использовать Git для хранения контента.
   branch: main
   base_url: https://caspianmetal.ge
   auth_endpoint: auth  # Укажи на нужный эндпоинт для локальной аутентификации
