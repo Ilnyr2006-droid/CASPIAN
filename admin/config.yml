@@ -1,7 +1,7 @@
 backend:
-  name: git-gateway
-  api_root: https://caspianmetal.ge/api/v1
-  branch: main
+  name: proxy
+  proxy_url: https://caspianmetal.ge/api/v1
+  branch: main  # Проверьте, что ветка называется main (или master)
 
 media_folder: "uploads"
 public_folder: "/uploads"
