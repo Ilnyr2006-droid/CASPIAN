@@ -1,13 +1,9 @@
 backend:
-  name: proxy
-  proxy_url: https://caspianmetal.ge/api/v1
-  branch: main  # Проверьте, что ветка называется main (или master)
+  name: git-gateway
+  branch: main
 
 media_folder: "uploads"
 public_folder: "/uploads"
-
-publish_mode: simple
-locale: "ru"
 
 collections:
   - name: "products"
@@ -16,13 +12,15 @@ collections:
       - file: "data/products.json"
         label: "Список товаров"
         name: "products_list"
+        format: "json"
         fields:
           - label: "Товары"
             name: "products"
             widget: "list"
+            summary: "{{fields.id}} — {{fields.title.ru}}"
             fields:
               - { label: "ID", name: "id", widget: "string" }
-              - { label: "Категория", name: "category", widget: "select", options: ["Металлические крыши", "Водосточные системы", "Древесный материал", "Саморезы", "Изоляция", "Крепления", "Аксессуары"] }
+              - { label: "Категория", name: "category", widget: "string" }
               - { label: "Картинка", name: "image", widget: "image", required: false }
               - label: "Название"
                 name: "title"
@@ -40,7 +38,9 @@ collections:
                   - { label: "KA", name: "ka", widget: "text", required: false }
                   - { label: "AZ", name: "az", widget: "text", required: false }
                   - { label: "EN", name: "en", widget: "text", required: false }
-              - { label: "Цена", name: "price", widget: "string", required: false }
+              - { label: "Единица (опц.)", name: "unit", widget: "string", required: false }
+              - { label: "Цена (опц.)", name: "price", widget: "string", required: false }
+              - { label: "Порядок (опц.)", name: "sort", widget: "number", required: false, value_type: "int" }
 
   - name: "news"
     label: "Новости"
@@ -48,12 +48,14 @@ collections:
       - file: "data/news.json"
         label: "Список новостей"
         name: "news_list"
+        format: "json"
         fields:
           - label: "Новости"
             name: "news"
             widget: "list"
+            summary: "{{fields.date}} — {{fields.title.ru}}"
             fields:
-              - { label: "ID", name: "id", widget: "string", default: "news-" }
+              - { label: "ID", name: "id", widget: "string" }
               - { label: "Дата", name: "date", widget: "datetime", format: "YYYY-MM-DD", time_format: false }
               - label: "Заголовок"
                 name: "title"
@@ -61,12 +63,17 @@ collections:
                 fields:
                   - { label: "RU", name: "ru", widget: "string" }
                   - { label: "KA", name: "ka", widget: "string", required: false }
+                  - { label: "AZ", name: "az", widget: "string", required: false }
+                  - { label: "EN", name: "en", widget: "string", required: false }
               - label: "Текст"
                 name: "text"
                 widget: "object"
                 fields:
                   - { label: "RU", name: "ru", widget: "text" }
                   - { label: "KA", name: "ka", widget: "text", required: false }
+                  - { label: "AZ", name: "az", widget: "text", required: false }
+                  - { label: "EN", name: "en", widget: "text", required: false }
+              - { label: "Картинка (опц.)", name: "image", widget: "image", required: false }
 
   - name: "projects"
     label: "Проекты"
@@ -74,10 +81,12 @@ collections:
       - file: "data/projects.json"
         label: "Список проектов"
         name: "projects_list"
+        format: "json"
         fields:
           - label: "Проекты"
             name: "projects"
             widget: "list"
+            summary: "{{fields.id}} — {{fields.title.ru}}"
             fields:
               - { label: "ID", name: "id", widget: "string" }
               - label: "Название"
@@ -85,4 +94,16 @@ collections:
                 widget: "object"
                 fields:
                   - { label: "RU", name: "ru", widget: "string" }
-              - { label: "Картинка", name: "image", widget: "image" }
+                  - { label: "KA", name: "ka", widget: "string", required: false }
+                  - { label: "AZ", name: "az", widget: "string", required: false }
+                  - { label: "EN", name: "en", widget: "string", required: false }
+              - label: "Описание (коротко)"
+                name: "short"
+                widget: "object"
+                fields:
+                  - { label: "RU", name: "ru", widget: "text" }
+                  - { label: "KA", name: "ka", widget: "text", required: false }
+                  - { label: "AZ", name: "az", widget: "text", required: false }
+                  - { label: "EN", name: "en", widget: "text", required: false }
+              - { label: "Картинка (опц.)", name: "image", widget: "image", required: false }
+              - { label: "Дата (опц.)", name: "date", widget: "datetime", format: "YYYY-MM-DD", time_format: false, required: false }
