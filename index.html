@@ -207,18 +207,5 @@
             slideInterval = setInterval(autoSlide, 6000);
         }
     </script>
-    <script>
-  (function () {
-    const h = window.location.hash || "";
-    if (
-      h.includes("invite_token=") ||
-      h.includes("recovery_token=") ||
-      h.includes("confirmation_token=")
-    ) {
-      window.location.replace("/admin/" + h);
-    }
-  })();
-</script>
-
 </body>
 </html>
